@@ -1,1 +1,0 @@
-n,t[];main(i){for(;n*=scanf("%d",&n);puts("")){for(bzero(t,999);n--;t[i]=*t)scanf(" %c %c",&i,t);for(scanf("%d",&n);n--;putchar(t[i]?:i))scanf(" %c",&i);}}
