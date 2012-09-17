@@ -26,10 +26,6 @@ int main(){
 	if(i == j)continue;
 	int xdis = points[i][0] - points[j][0];
 	int ydis = points[i][1] - points[j][1];
-	if(points[j][0] + ydis < 0 || points[j][0] + ydis > 5000)continue;
-	if(points[j][1] - xdis < 0 || points[j][1] - xdis > 5000)continue;
-	if(points[i][0] + ydis < 0 || points[i][0] + ydis > 5000)continue;
-	if(points[i][1] - xdis < 0 || points[i][1] - xdis > 5000)continue;
 	if(fields.find(make_pair(points[j][0] + ydis, points[j][1] - xdis)) == fields.end())continue;
 	if(fields.find(make_pair(points[i][0] + ydis, points[i][1] - xdis)) == fields.end())continue;
 	if(max < xdis * xdis + ydis * ydis){
