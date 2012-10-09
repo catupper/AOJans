@@ -1,0 +1,12 @@
+問題番号:AOJ0013
+問題名:Switching Railroad Cars
+
+解説:
+単にStackをシミュレートするだけである。
+
+技術:
+Stack
+
+アルゴリズム:
+O(N)
+N = 入力の数
