@@ -1,0 +1,16 @@
+問題番号:AOJ0018
+問題名:Sorting Five Numbers
+
+解説:
+数字を降順にソートして出力するだけ。
+alogrithmをincludeするとソートしてくれる関数sortを呼び出すことができるようになるので、使うと楽かも。
+
+技術:
+#include<algorithm>
+
+アルゴリズム:
+ソート
+やるだけ
+
+オーダー:
+O(1)
