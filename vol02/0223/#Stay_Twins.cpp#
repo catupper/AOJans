@@ -1,0 +1,58 @@
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+#define INF 4000
+
+int xs[] = {0, 1, 0, -1}, ys[] = {1, 0, -1, 0};
+int x, y;
+int field[55][55];
+short int  dp[55][55][55][55];
+
+short int solve(int tx, int ty, int kx, int ky, int depth){
+  if(depth > 3000)return INF;
+  int ntx, nty, nkx, nky;
+  if(dp[tx][ty][kx][ky] != -1){
+    return dp[tx][ty][kx][ky];
+  }
+  dp[tx][ty][kx][ky] = INF;
+  for(int i = 0;i < 4;i++){
+    ntx = tx + xs[i];
+    nty = ty + ys[i];
+    nkx = kx - xs[i];
+    nky = ky - ys[i];
+    if(ntx < 0 || ntx >= x || nty < 0 || nty >= y || field[ntx][nty] == 1){
+      ntx = tx;
+      nty = ty;
+    }
+    if(nkx < 0 || nkx >= x || nky < 0 || nky >= y || field[nkx][nky] == 1){
+      nkx = kx;
+      nky = ky;
+    }e
+    dp[tx][ty][kx][ky] = min(dp[tx][ty][kx][ky], (short int) (solve(ntx, nty, nkx, nky, depth + 1) + 1));
+  }
+  return dp[tx][ty][kx][ky];
+}
+
+int main(){
+  int tx, ty, kx, ky;
+  while(true){
+    scanf("%d%d", &x, &y);
+    memset(dp, -1, sizeof(dp));
+    if(x == 0 && y == 0) return 0;
+    scanf("%d%d", &tx, &ty);
+    scanf("%d%d", &kx, &ky);
+    for(int i = 0;i < y;i++){
+      for(int j = 0;j < x;j++){
+	scanf("%d", &field[j][i]);
+	dp[j][i][j][i] = 0;
+	dp[i][j][i][j] = 0;
+      }
+    }
+    short int ans = solve(tx - 1, ty - 1, kx - 1, ky - 1, 0);
+    if(ans >= 100)
+      puts("NA");
+    else
+      printf("%d\n", ans);
+  }
+}
