@@ -1,45 +1,42 @@
-#include<cstdio>
-#include<cstring>
+#include<iostream>
 #include<vector>
 #include<algorithm>
+
 using namespace std;
 
-vector<int> rings;
-vector<int> neibs[101];
-int used[101];
+bool used[105];
+vector<int> edge[105];
+int n, a, b;
 
 int dfs(int x){
-  int res = 1;
-  used[x] = 1;
-  for(int i = 0;i < neibs[x].size();i++){
-    if(used[neibs[x][i]] == 0){
-      int tmp = dfs(neibs[x][i]);
-      res = max(res, tmp + 1);
+    if(edge[x].empty())return 0;
+    if(used[x])return 0;
+    int res = 0;
+    used[x] = true;
+    for(int i = 0;i < edge[x].size();i++){
+	res = max(res, dfs(edge[x][i]));
     }
-  }
-  used[x] = 0;
-  return res;
+    used[x] = false;
+    return res + 1;
 }
 
 int main(){
-  while(1){
-    int n, res = 0;
-    rings.clear();
-    for(int i = 0;i < 101;i++)neibs[i].clear();
-    scanf("%d", &n);
-    if(n == 0)return 0;
-    for(int i = 0;i < n;i++){
-      int a, b;
-      scanf("%d%d", &a, &b);
-      rings.push_back(a);
-      rings.push_back(b);
-      neibs[a].push_back(b);
-      neibs[b].push_back(a);
+    while(true){
+	cin >> n;
+	if(n == 0)return 0;
+	for(int i = 0;i < 100;i++){
+	    edge[i].clear();
+	}
+	for(int i = 0;i < n;i++){
+	    cin >> a >> b;
+	    a--,b--;
+	    edge[a].push_back(b);
+	    edge[b].push_back(a);
+	}
+	int res = 0;
+	for(int i = 0;i < 100;i++){
+	    res = max(res, dfs(i));
+	}
+	cout << res << endl;
     }
-    for(int i = 0;i < rings.size();i++){
-      int tmp = dfs(rings[i]);
-      res = max(res, tmp);
-    }
-    printf("%d\n", res);
-  }
 }
