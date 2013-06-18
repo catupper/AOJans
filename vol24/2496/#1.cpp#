@@ -1,0 +1,111 @@
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+
+int bfs(int s){
+    fill(dist, dist + 5000, -1);
+    queue<int> q;
+    dist[s] = 0;
+    q.push(s);
+    while(!q.empty()){
+	P tmp = q.top();q.pop();
+	for(int i = 0;i < edge[tmp].size();i++){
+	    E &e = edge[tmp][i];
+	    if(e.val == 0)continue;
+	    if(dist[e.to] != -1)continue;
+	    dist[e.to] = dist[tmp] + 1;
+	    q.push(e.to);
+	}
+    }
+}
+
+int dfs(int x, int t, int f){
+    if(x == t)return f;
+    for(int i = 0;i < edge[x].size();i++){
+	E &e = edge[x][i];
+	if(dist[e.to] <= dist[x])continue;
+	int res = dfs(e.to, t, min(f, e.val));
+	if(res){
+	    e.val -= res;
+	    edge[e.to][e.rev].val += res;
+	    return res;
+	}
+    }
+    return 0;
+}
+
+int maximum_flow(int s, int t){
+    int res = 0;
+    bfs(s);
+    for(;;){
+	int tmp = dfs(s, t, INF);
+	if(!tmp)return res;
+	res += tmp;	
+    }
+}
+
+void add_edge(int x, int y, int val){
+    edge[x].push_back(E(y, val, edge[y].size()));
+    edge[y].push_back(E(x, 0, edge[x].size() - 1));
+    edge[y].push_back(E(x, val, edge[x].size()));
+    edge[x].push_back(E(y, 0, edge[y].size() - 1));
+}
+
+//minimize sames
+int solve(int less){
+    for(int i = 0;i < 5000;i++)edge[i].clear();
+    for(int i = 0;i < n;i++){
+	add_edge(i + w, i + w + 1, a[i]);
+	add_edge(i, i + w * 2 + 1, b[i]);
+    }
+    for(int i = 0;i < n + w * 2 + 1;i++){
+	if(i <= w){
+	    if(i & 1)
+		add_edge(START, i, INF);
+	    else
+		add_edge(GOAL, i, INF);
+	}
+	if(n + w < i){
+	    if(i & 1)
+		add_edge(less?START:GOAL, i, INF);
+	    else
+		add_edge(less?GOAL:START, i ,INF);
+	}
+    }
+    int res = maximum_flow(START, GOAL);
+    priority_queue<int> q;
+    q.push(START);
+    while(!q.empty()){
+	P tmp = q.top();q.pop();
+	for(int i = 0;i < edge[tmp].size();i++){
+	    E &e = edge[tmp][i];
+	    if(e.val == 0)continue;
+	    if(dist[e.to] != -1)continue;
+	    dist[e.to] = dist[tmp] + 1;
+	    way[e.to] = 1;
+	    q.push(e.to);
+	}
+    }
+    
+}
+
+int main(){
+    cin >> n >> w;
+    for(int i = 0;i < n;i++)cin >> a[i];
+    for(int i = 0;i < n;i++)cin >> b[i];
+
+
+    for(int i = 0;i < n + w * 2 + 1;i++){
+	add_edge(START, i, INF);
+	add_edge(GOAL, i, INF); 
+    }
+    
+    solve_flow();
+    
+    check_left();
+
+    for(int i = 
+
+}
