@@ -1,24 +1,20 @@
 #include<iostream>
-#include<cstdio>
-#include<map>
 #include<algorithm>
+#include<cstdio>
 #include<set>
-#include<vector>
+#include<map>
 using namespace std;
 
-map<long long, long long> score;
-set<long long, greater<long long> > scores;
+set<int, greater<int> > rank;
+map<int, int> points;
 int main(){
-    long long a, b, x;
-    while(true){
-	scanf("%lld,%lld", &a, &b);
-	if(a == 0 && b == 0)break;
-	score[a] = b;
-	scores.insert(b);
+    int a, b;
+    while(scanf("%d,%d", &a, &b), a){
+	rank.insert(b);
+	points[a] = b;
     }
-    while(cin){
-	cin >> x;
-	cout << distance(scores.begin(), scores.lower_bound(score[x])) + 1 << endl;
+    while(~scanf("%d", &a)){
+	cout << distance(rank.begin(), rank.lower_bound(points[a])) + 1 << endl;
     }
     return 0;
 }
