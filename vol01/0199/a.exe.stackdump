@@ -1,0 +1,9 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=00401347
+eax=00000042 ebx=00000000 ecx=00000000 edx=00291F49 esi=2005A608 edi=611A1E9F
+ebp=0028AC18 esp=0028AB40 program=c:\Users\Ken\Documents\programing\aoj\AOJans\vol01\0199\a.exe, pid 9768, thread main
+cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
+Stack trace:
+Frame     Function  Args
+0028AC18  00401347  (00000001, 0028AC40, 20028530, 2005A679)
+0028ACF8  6100763A  (00000000, 0028CD78, 61006C50, 00000000)
+End of stack trace
