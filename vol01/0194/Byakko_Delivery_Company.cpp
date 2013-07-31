@@ -13,14 +13,14 @@ typedef pair<int, N> T;
 int dist[25][25][25][25];
 int dkst[25][25][2];
 int light[25][25];
-int ys[]={0, 1, 0, -1}, xs[]={1, 0, -1, 0}
+int ys[]={0, 1, 0, -1}, xs[]={1, 0, -1, 0};
     int m, n, d, ns, ya, yb, k;
 char xa, xb;
 int nc, nj;
 
 void dijkstra(P start){
     priority_queue<T, vector<T>, greater<T> > pq;
-    dkst[start.first][start.second][0] = 0;
+    dkst[start.first][start.second][1] = 0;
     pq.push(T(0, N(start, 0)));
     while(!pq.empty()){
 	T tmp = pq.top();pq.pop();
