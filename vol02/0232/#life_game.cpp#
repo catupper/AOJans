@@ -1,0 +1,41 @@
+#include<iostream>
+#include<algorithm>
+#include<map.
+using namespace std;
+typedef pair<int, int> P;
+double cond[105][5250];
+P place[105];
+int main(){
+    while(cin >> x >> y >> z,x | y | z){
+	fill(place, place + 105, P(0, 0));
+	for(int i = 0;i < x;i++)cin >> v[i];
+	for(int i = 0;i < z;i++){
+	    cin >> n >> e >> a;
+	    if(e == 3)e = 2, a = -a;
+	    place[n] = P(e, a);
+	}
+	for(int i = 0;i < 105;i++)
+	    for(int j = 0;j < 5250;j++)
+		cond[i][j] = 0;
+
+	cond[0][0] = 1;
+	for(int i = 0;i <= y;i++){
+	    if(place[i].first != 1){
+		for(int j = 5200;j >= 0;j--)
+		    if(j - place[i].second >= 0)
+			cond[i][j] = cond[i][j - place[i].second];
+		    else
+			cond[i][j] = 0;
+		for(int j = 0;j < x;j++)
+		    for(int k = 0;k < 5250;k++)
+			cond[min(y, i + v[j])][k] += cond[i][k];
+	    }
+	    else{
+		for(int k = 0;k < 5250;k++)
+		    cond[min(y, i + place[i].second)][k] += cond[i][k];	
+	    }
+	}
+	
+    }
+    return 0;
+}
